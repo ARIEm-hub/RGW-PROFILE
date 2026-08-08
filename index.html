@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#080706" />
+  <title>RGWESHKA — Private Detective Dossier</title>
+  <link rel="icon" href="favicon.png" />
+  <style>
+:root{--bg:#080706;--paper:#12100e;--paper2:#17130f;--ink:#d8cab9;--muted:#8d8173;--line:#463b31;--red:#9a2419;--red2:#e64631;--purple:#9b4dff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 50% -20%,#21170f 0,#0b0907 38%,#050505 72%);color:var(--ink);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden;cursor:auto}body.custom-cursor-enabled{cursor:none}body.custom-cursor-enabled a,body.custom-cursor-enabled button,body.custom-cursor-enabled [role="button"]{cursor:none}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.17;background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),radial-gradient(circle at 20% 10%,rgba(255,255,255,.06),transparent 28%);mix-blend-mode:screen;z-index:20}.page{width:min(1220px,calc(100% - 32px));margin:auto;padding:38px 0 60px}
+.loader{position:fixed;inset:0;background:#020202;z-index:9999;display:grid;place-items:center;transition:opacity .8s ease,visibility .8s ease}.loader.hide{opacity:0;visibility:hidden}.loader-noise{position:absolute;inset:0;opacity:.12;background:repeating-linear-gradient(0deg,transparent 0 3px,#280400 4px)}.loader-center{position:relative;z-index:2;width:min(520px,82vw);text-align:center}.loader-logo{width:min(330px,66vw);filter:drop-shadow(0 0 18px rgba(230,45,30,.44));animation:pulse 2.4s ease-in-out infinite}.loader-name{font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:.55em;margin:4px 0 8px;color:#df3327}.loader-sub,.loader-percent{font-family:'IBM Plex Mono',monospace;color:#7f231c;letter-spacing:.25em;font-size:11px}.loader-line{width:100%;height:2px;background:#210604;margin:18px 0 9px;overflow:hidden}.loader-line span{display:block;height:100%;width:0;background:#d52e22;box-shadow:0 0 12px #d52e22;transition:width .08s linear}.loader-particles{position:absolute;inset:0;overflow:hidden}.particle{position:absolute;top:-20px;width:2px;height:9px;background:#7d150e;opacity:.55;filter:blur(.3px);animation:fall linear infinite}@keyframes fall{to{transform:translate3d(-90px,110vh,0) rotate(25deg)}}@keyframes pulse{50%{filter:drop-shadow(0 0 28px rgba(230,45,30,.72));transform:scale(1.02)}}
+.cursor,.cursor-ring{position:fixed;pointer-events:none;z-index:10000;left:0;top:0;opacity:0;will-change:transform;transition:opacity .12s ease}.cursor.cursor-visible,.cursor-ring.cursor-visible{opacity:1}.cursor{width:6px;height:6px;background:#d83a2d;border-radius:50%;box-shadow:0 0 12px #d83a2d}.cursor-ring{width:26px;height:26px;border:1px solid rgba(216,58,45,.55);border-radius:50%;transition:opacity .12s ease,width .15s,height .15s,border-color .15s,box-shadow .15s}.cursor-ring.cursor-hover{width:42px;height:42px;border-color:rgba(230,70,49,.9);box-shadow:0 0 20px rgba(216,58,45,.18)}
+.dossier-frame,.paper-card,.reference{border:1px solid var(--line);background:linear-gradient(145deg,rgba(23,19,15,.96),rgba(9,8,7,.97));box-shadow:0 18px 60px rgba(0,0,0,.42),inset 0 0 0 1px rgba(255,255,255,.012)}.hero{min-height:560px;display:grid;grid-template-columns:1.08fr .92fr;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0 48%,rgba(142,44,25,.08) 72%,transparent);pointer-events:none}.case-number{position:absolute;left:24px;top:18px;font:11px 'IBM Plex Mono',monospace;letter-spacing:.22em;color:#76675a}.hero-copy{padding:88px 56px 58px;align-self:center}.eyebrow{font:12px 'IBM Plex Mono',monospace;letter-spacing:.32em;color:var(--red2);margin:0 0 18px}.hero h1{font-size:clamp(58px,8vw,108px);line-height:.85;margin:0;letter-spacing:-.035em;font-weight:600}.hero-role{font-size:27px;font-style:italic;color:#a69583;margin:22px 0 35px}.hero-stats{display:flex;gap:12px;flex-wrap:wrap}.hero-stats span{min-width:118px;border-top:1px solid #5a4c3d;border-bottom:1px solid #2a241e;padding:10px 4px}.hero-stats small{display:block;font:9px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:#766c62}.hero-stats b{font-size:22px;font-weight:600}.hero-note{max-width:460px;color:#9d9081;font-size:19px;line-height:1.45;margin-top:32px}.hero-image-wrap{position:relative;min-height:560px}.hero-image{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.05) brightness(.78)}.hero-image-wrap:before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,#0f0c09 0,transparent 22%,transparent 75%,rgba(0,0,0,.4)),linear-gradient(0deg,rgba(0,0,0,.35),transparent 40%)}.photo-mark{position:absolute;right:18px;bottom:18px;z-index:2;font:10px 'IBM Plex Mono',monospace;color:#977e68;letter-spacing:.15em}
+.profile-grid,.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.paper-card{padding:26px;position:relative;overflow:hidden}.paper-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 0 70%,rgba(150,45,25,.035));}.section-head{display:flex;align-items:center;gap:14px;border-bottom:1px solid #493d32;padding-bottom:9px;margin-bottom:20px}.section-head span{font:11px 'IBM Plex Mono',monospace;color:#8e2a20}.section-head h2{font-size:25px;letter-spacing:.04em;margin:0;font-weight:600}.identity-card{min-height:650px}.identity-list{margin:0 0 20px}.identity-list div{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid #2a2520;padding:8px 0}.identity-list dt{color:#85796d;font-style:italic}.identity-list dd{margin:0;font-weight:600}.feature-block{padding:12px 15px;border-left:2px solid #7b241b;background:#0b0908}.feature-block h3{margin:0 0 5px;color:#b6a391}.feature-block p{margin:0;line-height:1.45;color:#8f8174}.fullbody{display:block;width:70%;max-height:330px;object-fit:cover;object-position:50% 24%;margin:22px auto 0;filter:brightness(.78) saturate(.7);border:1px solid #302820}.portrait-card{display:flex;flex-direction:column}.portrait-large{width:100%;height:430px;object-fit:cover;filter:brightness(.78) saturate(.8)}blockquote{font-size:25px;font-style:italic;margin:20px 0 8px;color:#a59685}.red-eye{font-size:16px;color:#8f8174}.red-eye span{display:inline-block;width:8px;height:8px;border-radius:50%;background:#a93226;box-shadow:0 0 12px #a93226;margin-right:8px}
+.habits{margin-top:18px}.habits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.habit{border:1px solid #302820;background:#0b0a09}.habit img{width:100%;height:250px;object-fit:cover;filter:brightness(.72) saturate(.8)}.habit div{padding:16px}.habit h3{margin:0 0 7px;font-size:22px}.habit p{margin:0;color:#8d8174;line-height:1.45}.items-image{width:100%;height:420px;object-fit:cover;filter:brightness(.72) saturate(.65)}.tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.tags span{font:10px 'IBM Plex Mono',monospace;border:1px solid #49382d;padding:7px 9px;color:#a18d7a}.notes-card ul{list-style:none;padding:0;margin:8px 0 26px}.notes-card li{padding:10px 0;border-bottom:1px solid #2a241e;font-size:20px}.notes-card li:before{content:"•";color:#9d2e23;margin-right:10px}.eye-detail{display:grid;grid-template-columns:180px 1fr;gap:16px;align-items:center}.eye-detail img{width:100%;height:115px;object-fit:cover;filter:brightness(.75)}.eye-detail p{color:#928577}.expressions{margin-top:18px}.expressions>img{width:100%;height:330px;object-fit:cover;object-position:center 55%;filter:brightness(.72) saturate(.74)}.reference{margin-top:18px;padding:18px}.reference-title{display:flex;justify-content:space-between;align-items:end;padding:0 4px 12px;color:#a39281}.reference-title span{font:12px 'IBM Plex Mono',monospace;letter-spacing:.22em}.reference-title small{font-style:italic}.reference img{display:block;width:100%;border:1px solid #332b24;filter:brightness(.74) saturate(.74)}
+.darkclaw-cta{margin-top:22px;min-height:160px;display:flex;align-items:center;justify-content:space-between;padding:25px 34px;text-decoration:none;color:white;border:1px solid rgba(159,81,255,.55);background:radial-gradient(circle at 85% 50%,rgba(136,54,255,.32),transparent 33%),linear-gradient(120deg,#12091f,#08050d 65%);box-shadow:0 0 40px rgba(125,53,230,.14),inset 0 0 35px rgba(136,54,255,.08);transition:.25s}.darkclaw-cta:hover{transform:translateY(-3px);border-color:#ad6aff;box-shadow:0 0 55px rgba(145,70,255,.28),inset 0 0 45px rgba(136,54,255,.12)}.cta-copy{display:flex;flex-direction:column;gap:6px}.cta-copy small{font:10px 'IBM Plex Mono',monospace;letter-spacing:.25em;color:#a278d1}.cta-copy strong{font-size:clamp(28px,4vw,54px);font-weight:600}.cta-copy span{color:#a69aac}.darkclaw-cta img{width:145px;height:120px;object-fit:contain;filter:drop-shadow(0 0 16px rgba(154,80,255,.5))}footer{display:flex;justify-content:space-between;gap:20px;padding:24px 4px 0;font:10px 'IBM Plex Mono',monospace;letter-spacing:.16em;color:#62584e}.reveal{opacity:0;transform:translateY(18px);transition:opacity .75s ease,transform .75s ease}.reveal.show{opacity:1;transform:none}
+@media(max-width:850px){body{cursor:auto}.cursor,.cursor-ring{display:none}.page{width:min(100% - 18px,720px);padding-top:10px}.hero{grid-template-columns:1fr}.hero-copy{padding:72px 28px 28px}.hero-image-wrap{min-height:430px}.profile-grid,.split{grid-template-columns:1fr}.habits-grid{grid-template-columns:1fr}.habit{display:grid;grid-template-columns:135px 1fr}.habit img{height:100%;min-height:190px}.items-image{height:330px}.expressions>img{height:220px}.darkclaw-cta{padding:24px 22px}.darkclaw-cta img{width:90px;height:90px}.eye-detail{grid-template-columns:130px 1fr}footer{flex-direction:column}.hero h1{font-size:64px}}@media(max-width:520px){.hero-copy{padding-left:20px;padding-right:20px}.hero-stats span{min-width:100px}.paper-card{padding:18px}.identity-list div{grid-template-columns:115px 1fr}.habit{grid-template-columns:1fr}.habit img{height:235px}.darkclaw-cta{min-height:140px}.cta-copy strong{font-size:25px}.darkclaw-cta img{width:72px}.reference{padding:10px}}
+.no-js .reveal{opacity:1!important;transform:none!important}
+
+</style>
+</head>
+<body class="no-js">
+  <div id="loader" class="loader" aria-label="Загрузка профиля RGW">
+    <div class="loader-noise"></div>
+    <div class="loader-particles" id="loaderParticles"></div>
+    <div class="loader-center">
+      <img src="rgw-loader-logo.png" class="loader-logo" alt="RGW logo" />
+      <div class="loader-name">RGW</div>
+      <div class="loader-sub">DOSSIER // LOADING</div>
+      <div class="loader-line"><span id="loaderBar"></span></div>
+      <div class="loader-percent" id="loaderPercent">0%</div>
+    </div>
+  </div>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <main class="page" id="page">
+    <section class="hero dossier-frame reveal">
+      <div class="case-number">CASE FILE // RGW-020</div>
+      <div class="hero-copy">
+        <p class="eyebrow">ЧАСТНОЕ ДОСЬЕ</p>
+        <h1>RGWESHKA</h1>
+        <p class="hero-role">Частный детектив</p>
+        <div class="hero-stats">
+          <span><small>Возраст</small><b>20</b></span>
+          <span><small>Рост</small><b>181 см</b></span>
+          <span><small>Статус</small><b>ACTIVE</b></span>
+        </div>
+        <p class="hero-note">Редко говорит о себе. Доверяет только фактам. Прошлое — загадка.</p>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="rgw-main.jpg" alt="RGWESHKA" class="hero-image" />
+        <div class="photo-mark">EVIDENCE // 01</div>
+      </div>
+    </section>
+
+    <section class="profile-grid reveal">
+      <article class="paper-card identity-card">
+        <div class="section-head"><span>01</span><h2>ПЕРСОНАЖ</h2></div>
+        <dl class="identity-list">
+          <div><dt>Имя</dt><dd>RGWESHKA</dd></div>
+          <div><dt>Возраст</dt><dd>20</dd></div>
+          <div><dt>Рост</dt><dd>181</dd></div>
+          <div><dt>Род деятельности</dt><dd>Частный детектив</dd></div>
+        </dl>
+        <div class="feature-block">
+          <h3>Особенности</h3>
+          <p>Острый слух, ночное зрение, холодный ум, интуиция, скрытность.</p>
+        </div>
+        <img src="rgw-fullbody.jpg" alt="Полный рост RGWESHKA" class="fullbody" />
+      </article>
+
+      <article class="paper-card portrait-card">
+        <div class="section-head"><span>02</span><h2>НАБЛЮДЕНИЕ</h2></div>
+        <img src="rgw-main.jpg" alt="Портрет персонажа" class="portrait-large" />
+        <blockquote>«Истина — её цель.»</blockquote>
+        <div class="red-eye"><span></span> Красные глаза — результат особенности зрения.</div>
+      </article>
+    </section>
+
+    <section class="paper-card habits reveal">
+      <div class="section-head"><span>03</span><h2>ЧТО ЛЮБИТ</h2></div>
+      <div class="habits-grid">
+        <article class="habit">
+          <img src="rgw-smoking.jpg" alt="Курит сигарету" />
+          <div><h3>Курить сигареты</h3><p>Помогает мыслить яснее. Успокаивает нервы. Неотъемлемая часть её ритуала.</p></div>
+        </article>
+        <article class="habit">
+          <img src="rgw-investigation.jpg" alt="Расследование" />
+          <div><h3>Выслеживать преступление</h3><p>Любит собирать детали, замечать то, чего не видят другие. Истина — её цель.</p></div>
+        </article>
+        <article class="habit">
+          <img src="rgw-night.jpg" alt="Вечерняя прогулка" />
+          <div><h3>Вечерние прогулки</h3><p>Город ночью — её место силы. Прогулки помогают думать и наблюдать.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="split reveal">
+      <article class="paper-card items-card">
+        <div class="section-head"><span>04</span><h2>АКСЕССУАРЫ / ВЕЩИ</h2></div>
+        <img src="rgw-items.jpg" alt="Вещи персонажа" class="items-image" />
+        <div class="tags">
+          <span>Любимые сигареты</span><span>Зажигалка</span><span>Блокнот детектива</span><span>Телефон</span>
+        </div>
+      </article>
+      <article class="paper-card notes-card">
+        <div class="section-head"><span>05</span><h2>ЗАМЕТКИ</h2></div>
+        <ul>
+          <li>Редко говорит о себе.</li>
+          <li>Доверяет только фактам.</li>
+          <li>Работает одна.</li>
+          <li>Не привязана к месту.</li>
+          <li>Прошлое — загадка.</li>
+        </ul>
+        <div class="eye-detail"><img src="rgw-eyes.jpg" alt="Красный глаз" /><p><b>Деталь:</b> красные глаза связаны с особенностью зрения.</p></div>
+      </article>
+    </section>
+
+    <section class="paper-card expressions reveal">
+      <div class="section-head"><span>06</span><h2>ВЫРАЖЕНИЯ ЛИЦА</h2></div>
+      <img src="rgw-expressions.jpg" alt="Выражения лица RGWESHKA" />
+    </section>
+
+    <section class="reference reveal">
+      <div class="reference-title"><span>ORIGINAL CHARACTER SHEET</span><small>архивная карточка</small></div>
+      <img src="rgw-reference.jpg" alt="Полный референс персонажа RGWESHKA" />
+    </section>
+
+    <a class="darkclaw-cta reveal" href="https://ariem-hub.github.io/DARKCLAW/" target="_blank" rel="noopener noreferrer">
+      <div class="cta-copy"><small>DARKCLAW // ACCESS</small><strong>ВСТУПИТЬ В DARKCLAW</strong><span>Открыть официальный сайт</span></div>
+      <img src="darkclaw-logo.png" alt="DARKCLAW" />
+    </a>
+
+    <footer><span>RGWESHKA // PRIVATE DOSSIER</span><span>20 • 181 • PRIVATE DETECTIVE</span></footer>
+  </main>
+
+  <script>document.body.classList.remove('no-js');</script>
+<script>
+(() => {
+  'use strict';
+
+  const ready = (fn) => {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn, { once: true });
+    else fn();
+  };
+
+  ready(() => {
+    const loader = document.getElementById('loader');
+    const bar = document.getElementById('loaderBar');
+    const pct = document.getElementById('loaderPercent');
+    const particles = document.getElementById('loaderParticles');
+
+    // --- Loader: guaranteed to finish ---
+    let progress = 0;
+    let finished = false;
+
+    const finishLoader = () => {
+      if (finished) return;
+      finished = true;
+      progress = 100;
+      if (bar) bar.style.width = '100%';
+      if (pct) pct.textContent = '100%';
+
+      window.setTimeout(() => {
+        if (!loader) return;
+        loader.classList.add('hide');
+        document.documentElement.classList.add('site-ready');
+        window.setTimeout(() => loader.remove(), 900);
+      }, 280);
+    };
+
+    if (particles) {
+      const frag = document.createDocumentFragment();
+      for (let i = 0; i < 42; i++) {
+        const p = document.createElement('i');
+        p.className = 'particle';
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.animationDuration = `${4 + Math.random() * 7}s`;
+        p.style.animationDelay = `${-Math.random() * 8}s`;
+        p.style.opacity = `${0.15 + Math.random() * 0.55}`;
+        frag.appendChild(p);
+      }
+      particles.appendChild(frag);
+    }
+
+    const loaderTimer = window.setInterval(() => {
+      if (finished) {
+        clearInterval(loaderTimer);
+        return;
+      }
+      const remaining = 100 - progress;
+      const step = remaining > 35 ? 5 + Math.random() * 8 : remaining > 12 ? 2 + Math.random() * 5 : 1 + Math.random() * 2.5;
+      progress = Math.min(100, progress + step);
+      const shown = Math.floor(progress);
+      if (bar) bar.style.width = `${shown}%`;
+      if (pct) pct.textContent = `${shown}%`;
+      if (progress >= 100) {
+        clearInterval(loaderTimer);
+        finishLoader();
+      }
+    }, 90);
+
+    // Absolute failsafe: loader can never stay forever.
+    window.setTimeout(() => {
+      clearInterval(loaderTimer);
+      finishLoader();
+    }, 4200);
+
+    // Finish a little faster once all assets are loaded.
+    window.addEventListener('load', () => {
+      window.setTimeout(() => {
+        if (!finished && progress >= 72) {
+          progress = 100;
+          clearInterval(loaderTimer);
+          finishLoader();
+        }
+      }, 220);
+    }, { once: true });
+
+    // --- Custom cursor: robust pointer tracking ---
+    const dot = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (dot && ring && finePointer) {
+      document.body.classList.add('custom-cursor-enabled');
+      let mx = -100;
+      let my = -100;
+      let rx = -100;
+      let ry = -100;
+      let cursorVisible = false;
+
+      const showCursor = () => {
+        if (cursorVisible) return;
+        cursorVisible = true;
+        dot.classList.add('cursor-visible');
+        ring.classList.add('cursor-visible');
+      };
+
+      window.addEventListener('pointermove', (e) => {
+        if (e.pointerType && e.pointerType !== 'mouse') return;
+        mx = e.clientX;
+        my = e.clientY;
+        dot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
+        showCursor();
+      }, { passive: true });
+
+      document.addEventListener('mouseleave', () => {
+        dot.classList.remove('cursor-visible');
+        ring.classList.remove('cursor-visible');
+        cursorVisible = false;
+      });
+
+      document.addEventListener('mouseenter', () => {
+        if (mx >= 0 && my >= 0) showCursor();
+      });
+
+      const animateRing = () => {
+        rx += (mx - rx) * 0.18;
+        ry += (my - ry) * 0.18;
+        ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
+        requestAnimationFrame(animateRing);
+      };
+      requestAnimationFrame(animateRing);
+
+      document.querySelectorAll('a, button, [role="button"]').forEach((el) => {
+        el.addEventListener('mouseenter', () => ring.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => ring.classList.remove('cursor-hover'));
+      });
+    } else {
+      if (dot) dot.remove();
+      if (ring) ring.remove();
+    }
+
+    // --- Reveal animations ---
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+      revealEls.forEach((el) => observer.observe(el));
+    } else {
+      revealEls.forEach((el) => el.classList.add('show'));
+    }
+  });
+})();
+
+</script>
+</body>
+</html>
